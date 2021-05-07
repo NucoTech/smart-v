@@ -2,7 +2,7 @@
 
 # 复制nginx配置文件
 echo "复制nginx配置文件"
-cp smartV.conf /etc/nginx/conf.d/smartV.conf
+cp smartV.conf /etc/nginx/conf.d/smartV.conf && nginx -s reload
 
 # 下载依赖
 echo "下载nodejs依赖"
