@@ -1,0 +1,17 @@
+{
+  "name": "smart-v",
+  "version": "1.0.0",
+  "main": "./index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": "https://github.com/NucoTech/smart-v.git",
+  "author": "HerbertHe <Herbert.He0229@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-router": "^10.0.0"
+  }
+}
