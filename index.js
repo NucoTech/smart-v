@@ -1,13 +1,19 @@
 const Koa = require("koa")
 const app = new Koa()
 const bodyParser = require("koa-body")
+const static = require("koa-static")
+
+const path = require("path")
+
 const router = require("./routers/index")
 
 const { port } = require("./smartVrc")
 
+app.use(static(path.resolve(__dirname, "./public")))
+
 app.use(
     bodyParser({
-        enableTypes: ["json"],
+        enableTypes: ["json"]
     })
 )
 app.use(router.routes())
