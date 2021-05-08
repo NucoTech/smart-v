@@ -6,7 +6,7 @@ const regLarkRouter = (router) => {
         const { challenge, type, token } = ctx.request.body
         if (verifyLarkToken(token) && type === "url_verification") {
             ctx.body = {
-                challenge,
+                challenge
             }
         } else {
             ctx.status = 403
@@ -14,15 +14,9 @@ const regLarkRouter = (router) => {
     })
 
     // 校验飞书事件订阅
-    router.post("/lark/event", async(ctx, next) => {
-        const { challenge, type, token } = ctx.request.body
-        if (verifyLarkToken(token) && type === "url_verification") {
-            ctx.body = {
-                challenge
-            }
-        } else {
-            ctx.status = 403
-        }
+    router.post("/lark/event", async (ctx, next) => {
+        const { event } = ctx.request.body
+        console.log(event)
     })
 
     // 摇人功能
