@@ -75,64 +75,71 @@ const sendMessages = async (idType, id, content, msgType) => {
  */
 const handleChatPrivate = async (event) => {
     const { open_id, msg_type, text } = event
-    if (msg_type === "text" && text === "随机算法") {
-        const [
-            question_id,
-            title,
-            value,
-            time,
-            hard,
-            url
-        ] = await codeTopSpider("", parseInt(Math.random() * 28))
-        const content = {
-            zh_cn: {
-                title: "随机算法题",
-                content: [
-                    [
-                        {
-                            tag: "text",
-                            text: `Leetcode - ${question_id} -${title}\n`
-                        },
-                        {
-                            tag: "text",
-                            text: `最近考察时间: ${time}\n`
-                        },
-                        {
-                            tag: "text",
-                            text: `考察频率: ${value}\n`
-                        },
-                        {
-                            tag: "text",
-                            text: `题目难度: ${hard}\n`
-                        },
-                        {
-                            tag: "a",
-                            text: title,
-                            href: url
-                        }
-                    ]
-                ]
+    if (msg_type === "text") {
+        switch (text) {
+            case "随机算法": {
+                const [
+                    question_id,
+                    title,
+                    value,
+                    time,
+                    hard,
+                    url
+                ] = await codeTopSpider("", parseInt(Math.random() * 28))
+                const content = {
+                    zh_cn: {
+                        title: "随机算法题",
+                        content: [
+                            [
+                                {
+                                    tag: "text",
+                                    text: `Leetcode - ${question_id} -${title}\n`
+                                },
+                                {
+                                    tag: "text",
+                                    text: `最近考察时间: ${time}\n`
+                                },
+                                {
+                                    tag: "text",
+                                    text: `考察频率: ${value}\n`
+                                },
+                                {
+                                    tag: "text",
+                                    text: `题目难度: ${hard}\n`
+                                },
+                                {
+                                    tag: "a",
+                                    text: title,
+                                    href: url
+                                }
+                            ]
+                        ]
+                    }
+                }
+                sendMessages("", open_id, JSON.stringify(content), "post")
+                return
+            }
+            case "帮助":
+            case "help": {
+                const content = JSON.stringify({
+                    zh_cn: {
+                        title: "帮助",
+                        content: [
+                            [
+                                {
+                                    tag: "text",
+                                    text: `获取算法题口令: 随机算法`
+                                }
+                            ]
+                        ]
+                    }
+                })
+                sendMessages("", open_id, content, "post")
+                return
             }
         }
-        sendMessages("", open_id, JSON.stringify(content), "post")
-        return
-    } else if (msg_type === "text" && text === "help") {
-        const content = JSON.stringify({
-            zh_cn: {
-                title: "帮助",
-                content: [
-                    [
-                        {
-                            tag: "text",
-                            text: `获取算法题口令: 随机算法`
-                        }
-                    ]
-                ]
-            }
-        })
-        sendMessages("", open_id, content, "post")
-        return
     }
+
     sendMessages(
         "",
         open_id,
