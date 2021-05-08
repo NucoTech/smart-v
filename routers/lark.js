@@ -1,4 +1,8 @@
-const { verifyLarkToken, getTenantAccessToken } = require("../handlers/lark")
+const {
+    verifyLarkToken,
+    getTenantAccessToken,
+    handleChatPrivate
+} = require("../handlers/lark")
 
 const regLarkRouter = (router) => {
     // 校验飞书卡片订阅
@@ -16,7 +20,12 @@ const regLarkRouter = (router) => {
     // 校验飞书事件订阅
     router.post("/lark/event", async (ctx, next) => {
         const { event } = ctx.request.body
-        console.log(event)
+        switch (event.chat_type) {
+            case "private": {
+                ctx.body = handleChatPrivate(event)
+                break
+            }
+        }
     })
 
     // 摇人功能

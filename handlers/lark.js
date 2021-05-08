@@ -38,7 +38,15 @@ const getTenantAccessToken = async () => {
     }
 }
 
+/**
+ * 处理用户私聊消息
+ */
+const handleChatPrivate = (event) => {
+    return event
+}
+
 module.exports = {
     verifyLarkToken,
-    getTenantAccessToken
+    getTenantAccessToken,
+    handleChatPrivate
 }
