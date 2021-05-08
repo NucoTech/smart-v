@@ -93,23 +93,23 @@ const handleChatPrivate = async (event) => {
                             [
                                 {
                                     tag: "text",
-                                    text: `Leetcode - ${question_id} -${title}\n`
+                                    text: `❓ Leetcode - ${question_id} - ${title}\n`
                                 },
                                 {
                                     tag: "text",
-                                    text: `最近考察时间: ${time}\n`
+                                    text: `🙉 最近考察时间: ${time}\n`
                                 },
                                 {
                                     tag: "text",
-                                    text: `考察频率: ${value}\n`
+                                    text: `👀 考察频率: ${value}\n`
                                 },
                                 {
                                     tag: "text",
-                                    text: `题目难度: ${hard}\n`
+                                    text: `💪 题目难度: ${hard}\n`
                                 },
                                 {
                                     tag: "a",
-                                    text: title,
+                                    text: `🚀 ${title}`,
                                     href: url
                                 }
                             ]

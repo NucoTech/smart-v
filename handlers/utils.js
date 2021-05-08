@@ -1,4 +1,5 @@
 const fetch = require("node-fetch")
+const nodejieba = require("nodejieba")
 
 const fetchRequest = async (url, method, params, body, headers) => {
     try {
@@ -26,6 +27,11 @@ const fetchRequest = async (url, method, params, body, headers) => {
     }
 }
 
+const fenci = (text) => {
+    return nodejieba.cut(text)
+}
+
 module.exports = {
-    fetchRequest
+    fetchRequest,
+    fenci
 }
