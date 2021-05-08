@@ -76,7 +76,7 @@ const sendMessages = async (idType, id, content, msgType) => {
 const handleChatPrivate = (event) => {
     const { open_id, msg_type, text } = event
     if (msg_type === "text" && text === "随机算法") {
-        const [question_id, title, hard, url] = codeTopSpider(
+        const [question_id, title, hard, url] = await codeTopSpider(
             "",
             parseInt(Math.random() * 28)
         )
