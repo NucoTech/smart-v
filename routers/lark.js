@@ -22,7 +22,7 @@ const regLarkRouter = (router) => {
         const { event } = ctx.request.body
         switch (event.chat_type) {
             case "private": {
-                ctx.body = handleChatPrivate(event)
+                handleChatPrivate(event)
                 break
             }
         }

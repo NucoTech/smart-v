@@ -70,7 +70,10 @@ const sendMessages = async (idType, id, content, msgType) => {
  */
 const handleChatPrivate = (event) => {
     const { open_id, msg_type, text } = event
-    sendMessages("", open_id, text, "text")
+    const content = JSON.stringify({
+        text
+    })
+    sendMessages("", open_id, content, "text")
 }
 
 module.exports = {
