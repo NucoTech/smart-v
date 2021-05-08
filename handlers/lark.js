@@ -76,10 +76,14 @@ const sendMessages = async (idType, id, content, msgType) => {
 const handleChatPrivate = async (event) => {
     const { open_id, msg_type, text } = event
     if (msg_type === "text" && text === "随机算法") {
-        const [question_id, title, hard, url] = await codeTopSpider(
-            "",
-            parseInt(Math.random() * 28)
-        )
+        const [
+            question_id,
+            title,
+            value,
+            time,
+            hard,
+            url
+        ] = await codeTopSpider("", parseInt(Math.random() * 28))
         const content = {
             zh_cn: {
                 title: "随机算法题",
@@ -88,6 +92,14 @@ const handleChatPrivate = async (event) => {
                         {
                             tag: "text",
                             text: `Leetcode - ${question_id} -${title}\n`
+                        },
+                        {
+                            tag: "text",
+                            text: `最近考察时间: ${time}\n`
+                        },
+                        {
+                            tag: "text",
+                            text: `考察频率: ${value}\n`
                         },
                         {
                             tag: "text",
@@ -103,16 +115,33 @@ const handleChatPrivate = async (event) => {
             }
         }
         sendMessages("", open_id, JSON.stringify(content), "post")
-    } else {
-        sendMessages(
-            "",
-            open_id,
-            JSON.stringify({
-                text: "你可以给我发 help 获取使用方法"
-            }),
-            "text"
-        )
+        return
+    } else if (msg_type === "text" && text === "help") {
+        const content = JSON.stringify({
+            zh_cn: {
+                title: "帮助",
+                content: [
+                    [
+                        {
+                            tag: "text",
+                            text: `获取算法题口令: 随机算法`
+                        }
+                    ]
+                ]
+            }
+        })
+        sendMessages("", open_id, content, "post")
+        return
     }
+    sendMessages(
+        "",
+        open_id,
+        JSON.stringify({
+            text: "你可以给我发 help 获取使用方法"
+        }),
+        "text"
+    )
+    return
 }
 
 module.exports = {

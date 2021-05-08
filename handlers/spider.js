@@ -25,6 +25,8 @@ const codeTopSpider = async (mode, page) => {
         return [
             question_id,
             title,
+            value,
+            time,
             hard,
             `https://leetcode-cn.com/problems/${slug_title}`
         ]
