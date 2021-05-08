@@ -1,5 +1,5 @@
 const regMainRouter = (router) => {
-    router.get("/", (ctx, next) => {})
+    router.get("/", async (ctx, next) => {})
 }
 
 module.exports = regMainRouter

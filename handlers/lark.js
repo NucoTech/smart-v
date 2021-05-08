@@ -2,6 +2,7 @@
 const { tenant_access_token_api, send_messages_api } = require("../apis/lark")
 const { Lark } = require("../smartVrc")
 const { fetchRequest } = require("./utils")
+const { codeTopSpider } = require("../handlers/spider")
 
 const { VerificationToken, AppID, AppSecret } = Lark
 
@@ -62,7 +63,11 @@ const sendMessages = async (idType, id, content, msgType) => {
         headers
     )
 
-    console.log(await res.json())
+    const { code, msg } = await res.json()
+
+    if (code !== 0) {
+        // 处理错误
+    }
 }
 
 /**
@@ -70,10 +75,44 @@ const sendMessages = async (idType, id, content, msgType) => {
  */
 const handleChatPrivate = (event) => {
     const { open_id, msg_type, text } = event
-    const content = JSON.stringify({
-        text
-    })
-    sendMessages("", open_id, content, "text")
+    if (msg_type === "text" && text === "随机算法") {
+        const [question_id, title, hard, url] = codeTopSpider(
+            "",
+            parseInt(Math.random() * 28)
+        )
+        const content = {
+            zh_cn: {
+                title: "随机算法题",
+                content: [
+                    [
+                        {
+                            tag: "text",
+                            text: `Leetcode - ${question_id} -${title}`
+                        },
+                        {
+                            tag: "text",
+                            text: `题目难度: ${hard}`
+                        },
+                        {
+                            tag: "a",
+                            text: "题目地址",
+                            href: url
+                        }
+                    ]
+                ]
+            }
+        }
+        sendMessages("", open_id, JSON.stringify(content), "post")
+    } else {
+        sendMessages(
+            "",
+            open_id,
+            JSON.stringify({
+                text: "你可以给我发 help 获取使用方法"
+            }),
+            "text"
+        )
+    }
 }
 
 module.exports = {
