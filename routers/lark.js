@@ -27,6 +27,7 @@ const regLarkRouter = (router) => {
             }
             case "group": {
                 handleChatGroup(event)
+                break
             }
         }
     })
