@@ -1,8 +1,6 @@
-const {
-    verifyLarkToken,
-    handleChatPrivate,
-    handleChatGroup
-} = require("../handlers/lark")
+const { handleChatPrivate, handleChatGroup } = require("../handlers/lark")
+
+const { verifyLarkToken } = require("../handlers/lark_common")
 
 const regLarkRouter = (router) => {
     // 校验飞书卡片订阅

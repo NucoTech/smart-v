@@ -174,5 +174,6 @@ const getRandomAl = async (open_id) => {
 module.exports = {
     getLarkHelp,
     getBlogs,
-    getRandomAl
+    getRandomAl,
+    verifyLarkToken
 }
