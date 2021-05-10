@@ -20,7 +20,6 @@ const regLarkRouter = (router) => {
     // 校验飞书事件订阅
     router.post("/lark/event", async (ctx, next) => {
         const { event } = ctx.request.body
-        console.log(event)
         switch (event.chat_type) {
             case "private": {
                 handleChatPrivate(event)
