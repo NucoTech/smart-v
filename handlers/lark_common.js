@@ -61,7 +61,7 @@ const getBlogs = (open_id) => {
     return
 }
 
-const getRandomAl = (open_id) => {
+const getRandomAl = async (open_id) => {
     const [
         question_id,
         title,
