@@ -128,7 +128,11 @@ const handleChatPrivate = async (event) => {
                             [
                                 {
                                     tag: "text",
-                                    text: `获取算法题口令: 随机算法`
+                                    text: `获取算法题口令: 随机算法\n`
+                                },
+                                {
+                                    tag: "text",
+                                    text: "获取博客地址: 博客\n"
                                 }
                             ]
                         ]
