@@ -156,12 +156,10 @@ const handleChatPrivate = async (event) => {
                         {
                             tag: "a",
                             text: "🍖 博客地址",
-                            href: res[1]
+                            href: item[1]
                         }
                     ]
                 })
-
-                console.log(res)
 
                 sendMessages(
                     "",
