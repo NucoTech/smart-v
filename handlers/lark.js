@@ -155,7 +155,7 @@ const handleChatPrivate = async (event) => {
                         },
                         {
                             tag: "a",
-                            text: "🍖 博客地址",
+                            text: `🍖 ${item[1]}`,
                             href: item[1]
                         }
                     ]
