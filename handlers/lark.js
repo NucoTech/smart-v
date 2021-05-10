@@ -1,5 +1,4 @@
 // 用于飞书Lark的响应函数
-const { Lark } = require("../smartVrc")
 const { getLarkHelp, getBlogs, getRandomAl } = require("./lark_common")
 
 /**

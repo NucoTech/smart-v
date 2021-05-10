@@ -2,6 +2,7 @@ const { Blogs } = require("../smartVrc")
 const { codeTopSpider } = require("./spider")
 const { tenant_access_token_api, send_messages_api } = require("../apis/lark")
 const { fetchRequest } = require("./utils")
+const { Lark } = require("../smartVrc")
 const { VerificationToken, AppID, AppSecret } = Lark
 
 /**
