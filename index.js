@@ -7,7 +7,7 @@ const path = require("path")
 
 const router = require("./routers/index")
 
-const { port } = require("./smartVrc")
+const { Port } = require("./smartVrc")
 
 app.use(static(path.resolve(__dirname, "./public")))
 
@@ -19,6 +19,6 @@ app.use(
 app.use(router.routes())
 app.use(router.allowedMethods())
 
-app.listen(port, () => {
+app.listen(Port, () => {
     console.log(`服务启动At: http://localhost:${port}`)
 })

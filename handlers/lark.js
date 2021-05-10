@@ -1,6 +1,6 @@
 // 用于飞书Lark的响应函数
 const { tenant_access_token_api, send_messages_api } = require("../apis/lark")
-const { Lark } = require("../smartVrc")
+const { Lark, Blogs } = require("../smartVrc")
 const { fetchRequest } = require("./utils")
 const { codeTopSpider } = require("../handlers/spider")
 
@@ -135,6 +135,42 @@ const handleChatPrivate = async (event) => {
                     }
                 })
                 sendMessages("", open_id, content, "post")
+                return
+            }
+            case "博客":
+            case "blog": {
+                if (!Blogs || Blogs.length === 0) {
+                    const content = JSON.stringify({
+                        text: "🚧 暂无可展示的博客嗷~"
+                    })
+                    sendMessages("", open_id, content, "text")
+                }
+
+                const res = Blogs.map((item) => {
+                    return [
+                        {
+                            tag: "text",
+                            text: `${item[0].split("|")[0].trim()}: \n`
+                        },
+                        {
+                            tag: "a",
+                            text: "🍖 博客地址",
+                            href: res[1]
+                        }
+                    ]
+                })
+
+                sendMessages(
+                    "",
+                    open_id,
+                    JSON.stringify({
+                        zh_cn: {
+                            title: "博客 Blogs",
+                            content: res
+                        }
+                    }),
+                    "post"
+                )
                 return
             }
         }
