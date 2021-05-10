@@ -1,8 +1,8 @@
 // 用于飞书Lark的响应函数
 const { tenant_access_token_api, send_messages_api } = require("../apis/lark")
-const { Lark, Blogs } = require("../smartVrc")
+const { Lark } = require("../smartVrc")
 const { fetchRequest } = require("./utils")
-const { codeTopSpider } = require("../handlers/spider")
+const { getLarkHelp, getBlogs, getRandomAl } = require("./lark_common")
 
 const { VerificationToken, AppID, AppSecret } = Lark
 
@@ -78,104 +78,17 @@ const handleChatPrivate = async (event) => {
     if (msg_type === "text") {
         switch (text) {
             case "随机算法": {
-                const [
-                    question_id,
-                    title,
-                    value,
-                    time,
-                    hard,
-                    url
-                ] = await codeTopSpider("", parseInt(Math.random() * 28))
-                const content = {
-                    zh_cn: {
-                        title: "随机算法题",
-                        content: [
-                            [
-                                {
-                                    tag: "text",
-                                    text: `❓ Leetcode - ${question_id} - ${title}\n`
-                                },
-                                {
-                                    tag: "text",
-                                    text: `🙉 最近考察时间: ${time}\n`
-                                },
-                                {
-                                    tag: "text",
-                                    text: `👀 考察频率: ${value}\n`
-                                },
-                                {
-                                    tag: "text",
-                                    text: `💪 题目难度: ${hard}\n`
-                                },
-                                {
-                                    tag: "a",
-                                    text: `🚀 ${title}`,
-                                    href: url
-                                }
-                            ]
-                        ]
-                    }
-                }
-                sendMessages("", open_id, JSON.stringify(content), "post")
+                getRandomAl(open_id)
                 return
             }
             case "帮助":
             case "help": {
-                const content = JSON.stringify({
-                    zh_cn: {
-                        title: "帮助",
-                        content: [
-                            [
-                                {
-                                    tag: "text",
-                                    text: `获取算法题口令: 随机算法\n`
-                                },
-                                {
-                                    tag: "text",
-                                    text: "获取博客地址: 博客\n"
-                                }
-                            ]
-                        ]
-                    }
-                })
-                sendMessages("", open_id, content, "post")
+                getLarkHelp(open_id)
                 return
             }
             case "博客":
             case "blog": {
-                if (!Blogs || Blogs.length === 0) {
-                    const content = JSON.stringify({
-                        text: "🚧 暂无可展示的博客嗷~"
-                    })
-                    sendMessages("", open_id, content, "text")
-                    return
-                }
-
-                const res = Blogs.map((item) => {
-                    return [
-                        {
-                            tag: "text",
-                            text: `${item[0].split("|")[0].trim()}: \n`
-                        },
-                        {
-                            tag: "a",
-                            text: `🍖 ${item[1]}`,
-                            href: item[1]
-                        }
-                    ]
-                })
-
-                sendMessages(
-                    "",
-                    open_id,
-                    JSON.stringify({
-                        zh_cn: {
-                            title: "博客 Blogs",
-                            content: res
-                        }
-                    }),
-                    "post"
-                )
+                getBlogs(open_id)
                 return
             }
 
@@ -203,6 +116,48 @@ const handleChatPrivate = async (event) => {
         "text"
     )
     return
+}
+
+/**
+ * 处理群消息
+ * @param {*} event
+ */
+const handleChatGroup = (event) => {
+    const {
+        is_mention,
+        employee_id,
+        open_id,
+        type,
+        text_without_at_bot
+    } = event
+    if (is_mention) {
+        // 只处理at的情况
+        if (type === "message") {
+            if (!text_without_at_bot) {
+                sendMessages(
+                    "",
+                    open_id,
+                    JSON.stringify({
+                        text: "请告诉我你需要什么吧~"
+                    }),
+                    "text"
+                )
+            } else {
+                switch (text_without_at_bot) {
+                    case "博客":
+                    case "blogs": {
+                        getBlogs(open_id)
+                        return
+                    }
+                    case "帮助":
+                    case "help": {
+                        getLarkHelp(open_id)
+                        return
+                    }
+                }
+            }
+        }
+    }
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 const {
     verifyLarkToken,
-    getTenantAccessToken,
-    handleChatPrivate
+    handleChatPrivate,
+    handleChatGroup
 } = require("../handlers/lark")
 
 const regLarkRouter = (router) => {
@@ -25,6 +25,9 @@ const regLarkRouter = (router) => {
             case "private": {
                 handleChatPrivate(event)
                 break
+            }
+            case "group": {
+                handleChatGroup(event)
             }
         }
     })
