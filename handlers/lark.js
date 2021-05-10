@@ -178,6 +178,19 @@ const handleChatPrivate = async (event) => {
                 )
                 return
             }
+
+            case "文档":
+            case "docs": {
+                sendMessages(
+                    "",
+                    open_id,
+                    JSON.stringify({
+                        text: "🚧 文档施工中~"
+                    }),
+                    "text"
+                )
+                return
+            }
         }
     }
 
@@ -185,7 +198,7 @@ const handleChatPrivate = async (event) => {
         "",
         open_id,
         JSON.stringify({
-            text: "你可以给我发 help 获取使用方法"
+            text: "你可以给我发 帮助 或者 help 获取使用方法"
         }),
         "text"
     )
