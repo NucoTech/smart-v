@@ -144,6 +144,7 @@ const handleChatPrivate = async (event) => {
                         text: "🚧 暂无可展示的博客嗷~"
                     })
                     sendMessages("", open_id, content, "text")
+                    return
                 }
 
                 const res = Blogs.map((item) => {
@@ -159,6 +160,8 @@ const handleChatPrivate = async (event) => {
                         }
                     ]
                 })
+
+                console.log(res)
 
                 sendMessages(
                     "",
