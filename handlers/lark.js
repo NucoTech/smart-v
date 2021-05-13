@@ -1,5 +1,5 @@
 // 用于飞书Lark的响应函数
-const { getLarkHelp, getBlogs, getRandomAl } = require("./lark_common")
+const { getLarkHelp, getBlogs, getRandomAl, sendMessages } = require("./lark_common")
 
 /**
  * 处理用户私聊消息
