@@ -94,9 +94,6 @@ const handleChatGroup = (event) => {
 }
 
 module.exports = {
-    verifyLarkToken,
-    getTenantAccessToken,
     handleChatPrivate,
-    sendMessages,
     handleChatGroup
 }

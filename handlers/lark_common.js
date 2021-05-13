@@ -175,5 +175,6 @@ module.exports = {
     getLarkHelp,
     getBlogs,
     getRandomAl,
-    verifyLarkToken
+    verifyLarkToken,
+    sendMessages
 }
