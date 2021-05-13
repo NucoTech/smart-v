@@ -5,9 +5,9 @@ const { getLarkHelp, getBlogs, getRandomAl, sendMessages } = require("./lark_com
  * 处理用户私聊消息
  */
 const handleChatPrivate = async (event) => {
-    const { open_id, msg_type, text } = event
+    const { open_id, msg_type, text_without_at_bot } = event
     if (msg_type === "text") {
-        switch (text) {
+        switch (text_without_at_bot) {
             case "随机算法": {
                 getRandomAl(open_id)
                 return
